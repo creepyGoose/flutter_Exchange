@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -9,21 +7,13 @@ const request =
     "https://api.hgbrasil.com/finance?format=json-cors&key=ce02782d";
 
 void main() async {
-  runApp(MaterialApp(home: Container()));
-  home:
-  Home();
-  theme:
-  ThemeData(
-    hintColor: Colors.amber,
-    primaryColor: Colors.white,
-    inputDecorationTheme: InputDecorationTheme(
-      enabledBorder:
-          OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-      focusedBorder:
-          OutlineInputBorder(borderSide: BorderSide(color: Colors.amber)),
-      hintStyle: TextStyle(color: Colors.amber),
+  runApp(MaterialApp(
+    home: Home(),
+    theme: ThemeData(
+      hintColor: Colors.amber,
+      primaryColor: Colors.white,
     ),
-  );
+  ));
 }
 
 Future<Map> getData() async {
@@ -78,12 +68,17 @@ class _HomeState extends State<Home> {
                 case ConnectionState.none:
                 case ConnectionState.waiting:
                   return Center(
-                      child: Text(
-                    "Carregando Dados...",
-                    style: TextStyle(
-                        backgroundColor: Colors.amber, fontSize: 25.0),
-                    textAlign: TextAlign.center,
-                  ));
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                        CircularProgressIndicator(
+                          backgroundColor: Colors.black,
+                          valueColor: AlwaysStoppedAnimation(Colors.amber),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                      ]));
                 default:
                   if (snapshot.hasError) {
                     return Center(
